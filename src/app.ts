@@ -1,10 +1,14 @@
 import express from 'express';
 import cors from 'cors';
+import tradeController from './controllers/trade';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Endpoints
+app.post('/trades', tradeController.submitTrade);
 
 // Health check
 app.get('/health', (_, res) => res.status(200).send('OK'));

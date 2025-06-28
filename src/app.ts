@@ -12,6 +12,12 @@ app.use(express.json());
 app.post('/trades', tradeController.submitTrade);
 app.get('/leaderboard', leaderboardController.getLeaderboard);
 
+app.post('/competitions/:id/trades', tradeController.submitCompetitionTrade);
+app.get(
+  '/competitions/:id/leaderboard',
+  leaderboardController.getCompetitionLeaderboard
+);
+
 // Health check
 app.get('/health', (_, res) => res.status(200).send('OK'));
 

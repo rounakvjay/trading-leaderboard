@@ -16,6 +16,18 @@ class TradeController {
     await leaderboardService.updateLeaderboard(DEFAULT_COMPETITION, trade);
     return res.status(201).json({ message: 'Trade processed successfully' });
   }
+
+  async submitCompetitionTrade(req: Request, res: Response): Promise<Response> {
+    const competitionId = req.params.id;
+    const trade = req.body as Trade;
+
+    if (!trade.traderId || typeof trade.pnl !== 'number') {
+      return res.status(400).json({ error: 'Invalid trade data' });
+    }
+
+    await leaderboardService.updateLeaderboard(competitionId, trade);
+    return res.status(201).json({ message: 'Trade processed successfully' });
+  }
 }
 
 export default new TradeController();

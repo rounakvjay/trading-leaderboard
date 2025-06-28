@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 
 import { Trade } from '../types';
+import leaderboardService from '../services/leaderboard.service';
+
+const DEFAULT_COMPETITION = 'global';
 
 class TradeController {
   async submitTrade(req: Request, res: Response): Promise<Response> {
@@ -10,7 +13,7 @@ class TradeController {
       return res.status(400).json({ error: 'Invalid trade data' });
     }
 
-    // TODO: Update leaderboard
+    await leaderboardService.updateLeaderboard(DEFAULT_COMPETITION, trade);
     return res.status(201).json({ message: 'Trade processed successfully' });
   }
 }

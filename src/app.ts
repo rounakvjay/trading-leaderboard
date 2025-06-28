@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import tradeController from './controllers/trade';
+import leaderboardController from './controllers/leaderboard';
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.json());
 
 // Endpoints
 app.post('/trades', tradeController.submitTrade);
+app.get('/leaderboard', leaderboardController.getLeaderboard);
 
 // Health check
 app.get('/health', (_, res) => res.status(200).send('OK'));

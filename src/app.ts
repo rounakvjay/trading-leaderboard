@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import tradeController from './controllers/trade';
-import leaderboardController from './controllers/leaderboard';
+import tradeRouter from './routes/trade';
+import leaderboardRouter from './routes/leaderboard';
 
 const app = express();
 
@@ -9,14 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 // Endpoints
-app.post('/trades', tradeController.submitTrade);
-app.get('/leaderboard', leaderboardController.getLeaderboard);
-
-app.post('/competitions/:id/trades', tradeController.submitCompetitionTrade);
-app.get(
-  '/competitions/:id/leaderboard',
-  leaderboardController.getCompetitionLeaderboard
-);
+app.use('/trades', tradeRouter);
+app.use('/leaderboard', leaderboardRouter);
 
 // Health check
 app.get('/health', (_, res) => res.status(200).send('OK'));
@@ -30,7 +24,7 @@ app.use(
     next: express.NextFunction
   ) => {
     console.error(err.stack);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 );
 

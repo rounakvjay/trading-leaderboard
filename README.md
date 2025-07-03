@@ -21,6 +21,9 @@ npm install
 ## Start Redis server:
 redis-server
 
+## Build the application
+npm run build
+
 ## Running the application 
 npm start
 
